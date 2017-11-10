@@ -3,6 +3,7 @@
 #include "Public/TankAIController.h"
 #include "TankPlayerController.h"
 #include "Engine/World.h"
+#include "Public/Tank.h"
 
 
 ATankAIController::ATankAIController()
