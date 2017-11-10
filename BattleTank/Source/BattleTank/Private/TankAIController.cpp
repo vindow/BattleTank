@@ -4,6 +4,12 @@
 #include "TankPlayerController.h"
 #include "Engine/World.h"
 
+
+ATankAIController::ATankAIController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -16,6 +22,18 @@ void ATankAIController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AIController cannot find PlayerTank"));
 	}
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetControlledTank())
+	{
+		//TODO: Move towards player
+		AimTowardsPlayer();
+		//TODO: Fire at player
+	}
+	
 }
 
 ATank* ATankAIController::GetControlledTank() const
@@ -34,4 +52,10 @@ ATank* ATankAIController::GetPlayerTank() const
 	{
 		return Cast<ATank>(PlayerTank);
 	}
+}
+
+void ATankAIController::AimTowardsPlayer()
+{
+	auto HitLocation = GetPlayerTank()->GetActorLocation();
+	GetControlledTank()->AimAt(HitLocation);
 }

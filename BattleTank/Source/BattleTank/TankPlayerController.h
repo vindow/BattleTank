@@ -18,16 +18,20 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 public:
 	ATankPlayerController();
 
-	virtual void BeginPlay() override;
-
 	virtual void Tick(float DeltaTime) override;
+
+protected:
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere)
-	float CrossHairXLocation = 0.5;
+	float CrossHairXLocation = 0.5f;
 
 	UPROPERTY(EditAnywhere)
-	float CrossHairYLocation = 0.3333;
+	float CrossHairYLocation = 0.3333f;
+
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000.0f;
 
 	ATank* GetControlledTank() const;
 
@@ -39,4 +43,5 @@ private:
 
 	//Returns true if it could get a look direction. Sets the OutLookDirection to unit vector of the direction the crosshair is looking
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const;
+	bool GetLookVectorHitDirection(FVector LookDirection, FVector& OutHitLocation) const;
 };
