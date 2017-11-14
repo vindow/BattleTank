@@ -15,7 +15,7 @@ void ATankPlayerController::BeginPlay()
 	auto ControlledTank = GetControlledTank();
 	if (ControlledTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing: %s"), *ControlledTank->GetName())
+		UE_LOG(LogTemp, Warning, TEXT("PlayerController possessing: %s"), *ControlledTank->GetName());
 	}
 	else
 	{
@@ -83,7 +83,10 @@ bool ATankPlayerController::GetLookVectorHitDirection(FVector LookDirection, FVe
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + LookDirection * LineTraceRange;
 
-	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetControlledPawn());
+
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility, CollisionParams))
 	{
 		OutHitLocation = HitResult.Location;
 		return true;
