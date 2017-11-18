@@ -21,7 +21,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	{
 		return;
 	}
-	//TODO: Clamp Throw value
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
@@ -46,6 +45,5 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 	IntendTurnRight(RightThrow);
-	//UE_LOG(LogTemp, Warning, TEXT("%s request direct move with move velocity %s"), *TankName, *MoveVelocityString);
 }
 

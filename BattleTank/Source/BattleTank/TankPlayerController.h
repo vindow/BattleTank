@@ -22,6 +22,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	ATank* GetControlledTank() const;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5f;
@@ -31,9 +34,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
-
-	ATank* GetControlledTank() const;
-
+	
 	//Starts the tank moving the barrel so that it will hit where the crosshair is pointed
 	void AimTowardsCrosshair();
 
