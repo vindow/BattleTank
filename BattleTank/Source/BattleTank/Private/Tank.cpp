@@ -12,27 +12,12 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
-	//No need to protect pointers added in construction
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
 }
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
-}
-
-void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
-{
-	Barrel = BarrelToSet;
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-}
-
-void ATank::SetTurretReference(UTankTurret* TurretToSet)
-{
-	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
 // Called to bind functionality to input
@@ -44,6 +29,10 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent)
+	{
+		return;
+	}
 	//auto TankName = GetName();
 	//UE_LOG(LogTemp, Warning, TEXT("%s is aiming at: %s"), *TankName, *HitLocation.ToString());
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
