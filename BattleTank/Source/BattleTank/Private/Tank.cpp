@@ -5,7 +5,6 @@
 #include "Engine/World.h"
 #include "Public/Projectile.h"
 #include "Public/TankBarrel.h"
-#include "Public/TankMovementComponent.h"
 
 // Sets default values
 ATank::ATank()
@@ -29,7 +28,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent)
+	if (!ensure(TankAimingComponent))
 	{
 		return;
 	}
@@ -41,7 +40,7 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::Fire()
 {
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && isReloaded)
+	if (ensure(Barrel) && isReloaded)
 	{
 		//spawn a projectile at the socket location on the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));

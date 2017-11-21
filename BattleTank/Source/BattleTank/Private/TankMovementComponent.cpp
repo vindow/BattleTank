@@ -6,7 +6,7 @@
 
 void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet)
+	if (!ensure(LeftTrackToSet && RightTrackToSet))
 	{
 		UE_LOG(LogTemp, Error, TEXT("Left or right track are not set (still nullptr)!"));
 		return;

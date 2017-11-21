@@ -41,7 +41,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::Initialize(UTankTurret * TurretToSet, UTankBarrel * BarrelToSet)
 {
-	if (!BarrelToSet || !TurretToSet)
+	if (!ensure(BarrelToSet && TurretToSet))
 	{
 		return;
 	}
@@ -61,7 +61,7 @@ void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel)
+	if (!ensure(Barrel))
 	{
 		return;
 	}
@@ -80,7 +80,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) const
 {
-	if (!Barrel || !Turret)
+	if (!ensure(Barrel && Turret))
 	{
 		return;
 	}

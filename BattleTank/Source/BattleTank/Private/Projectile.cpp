@@ -2,7 +2,6 @@
 
 #include "Public/Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "Engine/World.h"
 
 
 // Sets default values
