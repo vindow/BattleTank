@@ -6,7 +6,6 @@
 #include "Public/Tank.h"
 #include "Public/TankAimingComponent.h"
 
-
 ATankAIController::ATankAIController()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -34,7 +33,6 @@ void ATankAIController::Tick(float DeltaTime)
 		MoveToActor(PlayerTank, AcceptanceRadius);
 		auto HitLocation = PlayerTank->GetActorLocation();
 		AimingComponent->AimAt(HitLocation);
-		//ControlledTank->Fire(); TODO: call the AimingComponent to fire when firing is refactored
+		AimingComponent->Fire();
 	}
-	
 }

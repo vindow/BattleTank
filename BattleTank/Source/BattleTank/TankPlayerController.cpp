@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
-#include "Engine/World.h"
 #include "Public/TankAimingComponent.h"
+#include "Engine/World.h"
 
 ATankPlayerController::ATankPlayerController()
 {
@@ -29,18 +29,20 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	if (!ensure(AimingComponent))
+	if (!GetPawn())
 	{
 		return;
 	}
-	FVector HitLocation; //Out parameter
-	//Get world location of linetrace through crosshair
-	//If it hits a landscape
-	if (GetSightRayHitLocation(HitLocation))
+	UTankAimingComponent* AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(AimingComponent))
 	{
-		//Tell the controlled tank to aim at this point
-		AimingComponent->AimAt(HitLocation);
+		FVector HitLocation; //Out parameter
+		//Get world location of linetrace through crosshair
+		if (GetSightRayHitLocation(HitLocation))
+		{
+			//Tell the controlled tank to aim at this point
+			AimingComponent->AimAt(HitLocation);
+		}
 	}
 }
 
