@@ -4,6 +4,7 @@
 #include "TankPlayerController.h"
 #include "Engine/World.h"
 #include "Public/Tank.h"
+#include "Public/TankAimingComponent.h"
 
 
 ATankAIController::ATankAIController()
@@ -20,8 +21,9 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	auto ControlledTank = Cast<ATank>(GetPawn());
-	if (!ensure(ControlledTank))
+
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent))
 	{
 		return;
 	}
@@ -31,8 +33,8 @@ void ATankAIController::Tick(float DeltaTime)
 		//Move towards player
 		MoveToActor(PlayerTank, AcceptanceRadius);
 		auto HitLocation = PlayerTank->GetActorLocation();
-		ControlledTank->AimAt(HitLocation);
-		ControlledTank->Fire();
+		AimingComponent->AimAt(HitLocation);
+		//ControlledTank->Fire(); TODO: call the AimingComponent to fire when firing is refactored
 	}
 	
 }
