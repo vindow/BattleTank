@@ -60,20 +60,21 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 5000;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 AmmoCount = 10;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float ReloadTimeInSeconds = 3.0f;
+
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float ReloadTimeInSeconds = 3.0f;
-
 	double LastFireTime = 0.0f;
 
 	FVector AimDirection = FVector(0);
-
-	int32 AmmoCount = 10;
-
+	
 	EFiringState FiringState = EFiringState::Reloading;
 };
