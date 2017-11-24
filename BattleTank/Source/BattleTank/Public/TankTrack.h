@@ -20,7 +20,7 @@ public:
 
 	void ApplySidewaysForce();
 
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
 
 	void DriveTrack();

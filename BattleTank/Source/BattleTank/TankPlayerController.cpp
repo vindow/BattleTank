@@ -58,10 +58,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		//line-trace along the unit vector direction and see what we hit (up to max range)
-		if (GetLookVectorHitDirection(LookDirection, OutHitLocation))
-		{
-			return true;
-		}
+		return GetLookVectorHitDirection(LookDirection, OutHitLocation);
 	}
 	return false;
 }
