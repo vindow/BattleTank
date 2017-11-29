@@ -34,6 +34,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
+
+	virtual void SetPawn(APawn* InPawn) override;
 	
 	//Starts the tank moving the barrel so that it will hit where the crosshair is pointed
 	void AimTowardsCrosshair();
@@ -44,4 +46,7 @@ private:
 	//Returns true if it could get a look direction. Sets the OutLookDirection to unit vector of the direction the crosshair is looking
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const;
 	bool GetLookVectorHitDirection(FVector LookDirection, FVector& OutHitLocation) const;
+
+	UFUNCTION()
+	void OnTankDeath();
 };
